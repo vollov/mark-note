@@ -1,0 +1,34 @@
+<h1>Prospect Issue Notes</h1>
+
+<div class="menu">
+	<form class="navbar-form navbar-left">
+		<div class="form-group">
+			<input type="text" placeholder="Key Word" class="form-control">
+		</div>
+		<button type="submit" class="btn btn-success">Search</button>
+	</form>
+</div>
+
+<table class="table table-bordered table-striped">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>ID</th>
+			<th>Title</th>
+			<th>Created</th>
+			<th>Delete</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-class-even="'even'" ng-class='{selected: $index==selectedRow}'
+			ng-click="selectPost($index)"
+			ng-repeat="p in posts | orderBy:'created'">
+			<td>{{$index+1}}</td>
+			<td>{{p.id}}</td>
+			<td><a href="/#/post/view/{{p._id}}">{{p.title}}</a></td>
+			<td>{{p.created | date:'yyyy-MM-dd (HH)'}}</td>
+			<td><a class="btn btn-primary"
+				ng-click="deletePost(p, $index)" ng-class="{disabled: index < 0}">delete</a></td>
+		<tr>
+	</tbody>
+</table>
