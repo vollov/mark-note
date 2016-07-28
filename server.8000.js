@@ -43,7 +43,7 @@ app.use(cfg.app.api_url + '/posts', posts);
 app.use(cfg.app.api_url + '/tags', tags);
 
 app.get('*', function(req,res){
-	res.sendfile('index.html', { root: path.resolve(__dirname + '/public') });
+	res.sendFile('index.html', { root: path.resolve(__dirname + '/public') });
 })
 
 //catch 404 and forward to error handler
