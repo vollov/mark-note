@@ -16,19 +16,26 @@ function($scope, postService) {
 	};
 }])
 .controller('PostAddCtrl', ['$scope','$state', 'postService', function($scope, $state, postService) {
-
+	$scope.tags = postService.tags;
+	
 	//console.log('tags= %j', tags);
 	$scope.savePost = function() {
-		if (!$scope.title || $scope.title === '') {
+		if (!$scope.post.title || $scope.post.title === '') {
+			return;
+		}
+		if (!$scope.post.id || $scope.post.id === '') {
 			return;
 		}
 		
 		postService.create({
-			title : $scope.title,
-			content : $scope.content
+			id:$scope.post.id,
+			tag:$scope.post.tag,
+			title : $scope.post.title,
+			content : $scope.post.content
 		});
-		$scope.title = '';
-		$scope.content = '';
+		$scope.post.id = '';
+		$scope.post.title = '';
+		$scope.post.content = '';
 		
 		$state.go('posts');
 	};
@@ -37,22 +44,27 @@ function($scope, postService) {
 	$scope.post = post;
 	$scope.markdown_content = post.content;
 }])
-.controller('PostEditCtrl', ['$scope', 'post', 'postService', function($scope,post, postService) {
+.controller('PostEditCtrl', ['$scope', '$state', 'post', 'postService', function($scope, $state,post, postService) {
 	$scope.post = post;
-
+	$scope.tags = postService.tags;
+	
 	$scope.savePost = function() {
-		if (!$scope.title || $scope.title === '') {
+		if (!$scope.post.title || $scope.post.title === '') {
+			return;
+		}
+		if (!$scope.post.id || $scope.post.id === '') {
 			return;
 		}
 		
 		postService.update({
-			id : $scope.id,
-			title : $scope.title,
-			content : $scope.content
-		});
-		$scope.title = '';
-		$scope.content = '';
-		$scope.id = '';
+			id:$scope.post.id,
+			tag:$scope.post.tag,
+			title : $scope.post.title,
+			content : $scope.post.content
+		}, post._id);
+		$scope.post.id = '';
+		$scope.post.title = '';
+		$scope.post.content = '';
 		
 		$state.go('posts');
 	};

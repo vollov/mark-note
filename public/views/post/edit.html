@@ -2,18 +2,24 @@
 
 <form name="postForm" ng-submit="savePost()">
 	<div class="form-group">
-		<input type="text" class="form-control" placeholder="issue ID: e.g. PO-0001"
-			ng-model="id" value={{post.id}} required></input>
+		<input type="text" class="form-control"
+			placeholder="issue ID: e.g. PO-0001" ng-model="post.id" required></input>
 	</div>
 
 	<div class="form-group">
 		<input type="text" class="form-control" placeholder="Title"
-			ng-model="title" value={{post.title}} required></input>
+			ng-model="post.title" required></input>
 	</div>
-	
+
 	<div class="form-group">
-		<textarea rows="20" class="form-control"  value={{post.title}} 
-			placeholder="Descriptions as Mark Down" ng-model="content"></textarea>
+		<select name="tags" id="tagSelect" class="form-control"
+			ng-options="tag.name for tag in tags track by tag._id"
+			ng-model="post.tag"></select>
+	</div>
+
+	<div class="form-group">
+		<textarea rows="20" class="form-control"
+			placeholder="Descriptions as Mark Down" ng-model="post.content"></textarea>
 	</div>
 
 	<button type="submit" class="btn btn-default pull-right">Submit</button>

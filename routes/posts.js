@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
 
 	log.debug('HTTP GET /posts -- all post, req =');
 
-	Post.find({}).select().exec(function(err, posts) {
+	Post.find({}).populate('tag').select().exec(function(err, posts) {
 		if (err) {
 			log.debug('HTTP GET /posts -- all post, err = %j', err);
 			return res.status(500).json(err);
@@ -43,21 +43,24 @@ router.post('/', function(req, res, next) {
 });
 
 router.put('/:id', function(req, res, next) {
-	var id = req.params._id;	
-	log.debug('HTTP PUT /posts/:id -- id = %s', id);
-	
-	var query = Post.findById(id);
+	var id = req.params.id;
+	var p = req.body;
 
-	query.exec(function(err, post) {
-		if (err) {
-			return next(err);
-		}
-		if (!post) {
-			return next(new Error("can't find post"));
-		}
+	log.debug('HTTP PUT /posts/:id -- id = %s, post = %j', id, p);
+	
+	//res.json(p);
+	Post.findById(id, function (err, post) {
+		if (err) return next(new Error("can't find post"));
 		
-		log.debug('GET by id post= %j', post);
-		res.json(post);
+		_.extend(post,p);
+//		post.title= p.title;
+//		post.id = p.id;
+//		post.content = p.content;
+		
+		post.save(function (err) {
+			if (err) return next(err);
+		    res.json(post);
+		});
 	});
 });
 
@@ -65,7 +68,7 @@ router.get('/:id', function(req, res, next) {
 	var id = req.params.id;	
 	log.debug('HTTP GET /posts/:id -- id = %s', id);
 	
-	var query = Post.findById(id);
+	var query = Post.findById(id).populate('tag');
 
 	query.exec(function(err, post) {
 		if (err) {

@@ -32,14 +32,35 @@ angular.module('markNote', ['ui.router','hc.marked', 'post'])
 			post : ['$stateParams', 'postService',
 			function($stateParams, postService) {
 				return postService.get($stateParams.id);
+			}],
+			postPromise: ['postService', function(postService){
+				return postService.getTags();
 			}]
 		}
 	})
 	.state('post-add', {
 		url : '/post/add',
 		templateUrl : '/views/post/edit.html',
-		controller : 'PostAddCtrl'
+		controller : 'PostAddCtrl',
+		resolve: {
+			postPromise: ['postService', function(postService){
+				return postService.getTags();
+			}]
+		}
 	});
 	
 	$urlRouterProvider.otherwise('posts');
+}])
+.config(['markedProvider', function (markedProvider) {
+  markedProvider.setOptions({
+    gfm: true,
+    tables: true
+//    highlight: function (code, lang) {
+//      if (lang) {
+//        return hljs.highlight(lang, code, true).value;
+//      } else {
+//        return hljs.highlightAuto(code).value;
+//      }
+//    }
+  });
 }]);

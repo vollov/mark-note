@@ -36,3 +36,5 @@
 		<select class="form-control" ng-model="tag">
 			<option ng-repeat="t in tags" value="{{t._id}}">{{t.name}}</option>
 		</select>
+		
+		
