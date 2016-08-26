@@ -1,6 +1,6 @@
 {
   "name": "mark-note",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/vollov/mark-note"
@@ -13,7 +13,6 @@
   },
   "dependencies": {
     "body-parser": "^1.15.2",
-    "bunyan": "^1.8.1",
     "cookie-parser": "^1.4.3",
     "express": "^4.14.0",
     "express-jwt": "^3.4.0",
@@ -22,7 +21,8 @@
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "serve-favicon": "^2.3.0",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "winston": "~2.2.0"
   },
   "devDependencies": {
     "should": "~9.0.2",

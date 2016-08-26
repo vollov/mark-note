@@ -2,28 +2,6 @@
 var path = require('path');
 
 module.exports = {
-	
-	logging: {
-		name: 'mark-note',
-		streams : [ {
-			level : 'debug',
-			type : 'rotating-file',
-			path : path.join('.', 'logs/server.log'),
-			period : '14d', // daily rotation
-			count : 3 // keep 3 back copies
-		} ]
-	},
-	
-	test_log: {
-		name: 'mark-note-test',
-		streams : [ {
-			level : 'debug',
-			type : 'rotating-file',
-			path : path.join('.', 'logs/test.log'),
-			period : '1d', // daily rotation
-			count : 3 // keep 3 back copies
-		} ]
-	},
 		
 	test:{
 		url : 'http://localhost:8000'
@@ -48,6 +26,7 @@ module.exports = {
 	},
 	
 	app:{
+		app_root: __dirname,
 		api_url:'/api/v1.0',
 		port:8000
 	}

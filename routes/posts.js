@@ -3,9 +3,7 @@ var Post = mongoose.model('Post');
 
 var _ = require('underscore');
 var cfg = require('../config');
-var bunyan = require('bunyan');
-var log = bunyan.createLogger(_.extend(cfg.logging, {name: 'route-posts'}));
-
+var log = require('../lib/logger');
 var express = require('express');
 var router = express.Router();
 
