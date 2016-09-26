@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('markNote', ['ui.router','hc.marked', 'post'])
+angular.module('markNote', ['ui.router','hc.marked', 'post', 'role'])
 .constant('API', '/api/v1.0/')
 .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 	$stateProvider.state('posts', {
@@ -12,6 +12,10 @@ angular.module('markNote', ['ui.router','hc.marked', 'post'])
 				return postService.getAll();
 			}]
 		}
+	})
+	.state('404', {
+		url : '/404',
+		templateUrl : '/views/404.html'
 	})
 	.state('post-view', {
 		url : '/post/view/:id',
@@ -49,7 +53,7 @@ angular.module('markNote', ['ui.router','hc.marked', 'post'])
 		}
 	});
 	
-	$urlRouterProvider.otherwise('posts');
+	$urlRouterProvider.otherwise('404');
 }])
 .config(['markedProvider', function (markedProvider) {
   markedProvider.setOptions({

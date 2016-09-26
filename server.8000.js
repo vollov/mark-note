@@ -12,13 +12,19 @@ var app = express();
 var mongoose = require('mongoose');
 var cfg = require('./config');
 
+//=======================
+// DB Schema
+//=======================
 require('./models/Posts');
 require('./models/Tags');
+require('./models/Auth');
+
 //=======================
 //routes 
 //=======================
 var posts = require('./routes/posts');
 var tags = require('./routes/tags');
+var roles = require('./routes/roles');
 
 //connect MongoDB
 mongoose.connect('mongodb://localhost/'+ cfg.db.name, function(err,db){
@@ -39,6 +45,7 @@ app.use(cookieParser());
 app.use(favicon(__dirname + '/favicon.ico'));
 app.use(express.static(__dirname + '/public'));
 
+app.use(cfg.app.api_url + '/role', roles);
 app.use(cfg.app.api_url + '/posts', posts);
 app.use(cfg.app.api_url + '/tags', tags);
 
