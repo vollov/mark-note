@@ -25,6 +25,7 @@ require('./models/Auth');
 var posts = require('./routes/posts');
 var tags = require('./routes/tags');
 var roles = require('./routes/roles');
+var permissions = require('./routes/permissions');
 
 //connect MongoDB
 mongoose.connect('mongodb://localhost/'+ cfg.db.name, function(err,db){
@@ -46,6 +47,7 @@ app.use(favicon(__dirname + '/favicon.ico'));
 app.use(express.static(__dirname + '/public'));
 
 app.use(cfg.app.api_url + '/role', roles);
+app.use(cfg.app.api_url + '/permission', permissions);
 app.use(cfg.app.api_url + '/posts', posts);
 app.use(cfg.app.api_url + '/tags', tags);
 

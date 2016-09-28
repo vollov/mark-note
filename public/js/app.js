@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('markNote', ['ui.router','hc.marked', 'post', 'role'])
+angular.module('markNote', ['ui.router','hc.marked', 'post', 'role', 'permission'])
 .constant('API', '/api/v1.0/')
 .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 	$stateProvider.state('posts', {

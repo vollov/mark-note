@@ -9,7 +9,12 @@ angular.module('role', ['ui.router'])
 		data:{
 			requireLogin: false
 		},
-		controller : 'roleCtrl'
+		controller : 'roleCtrl',
+		resolve: {
+			rolePromise: ['roleService', function(roleService){
+				return roleService.getAll();
+			}]
+		}
 	})
 	// .state('role-edit', {
 	// 	url : '/role/edit/:id',
@@ -80,22 +85,32 @@ function RoleService($http, API){
 	return service;
 }
 
-RoleCtrl.$inject = ['roleService'];
+RoleCtrl.$inject = ['$scope','roleService'];
 
-function RoleCtrl(roleService){
+function RoleCtrl($scope,roleService){
 	//var vm = this;
-	this.roles = roleService.roles;
+	$scope.roles = roleService.roles;
+
+	$scope.selectRole = function(row) {
+		$scope.selectedRow = row;
+	};
+	
+	$scope.deleteRole = function(role, index) {
+		//console.log('delete post by id='+ post._id);
+		roleService.deleteById(role.id);
+		$scope.roles.splice(index, 1);
+	};
 }
 
-RoleAddCtrl.$inject = ['$state','roleService'];
+RoleAddCtrl.$inject = ['$scope','$state','roleService'];
 
-function RoleAddCtrl($state, roleService){
+function RoleAddCtrl($scope, $state, roleService){
 
-	this.saveRole = function(){
+	$scope.saveRole = function(){
 		console.log('calling RoleAddCtrl.saveRole()');
 		roleService.create({
-			name: this.name,
-			description: this.description
+			name: this.role.name,
+			description: this.role.description
 		});
 		$state.go('roles');
 	}
