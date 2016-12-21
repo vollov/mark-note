@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('post.services', [])
-.factory('postService', [ '$http', 'API', function($http, API) {
+.factory('postService', [ '$http', 'API', '_', function($http, API, _) {
 	
 	var service = {
 			posts : [], 
@@ -48,6 +48,10 @@ angular.module('post.services', [])
 		return $http.delete(API + 'posts/' + id).then(function(res) {
 			return res.data;
 		});
+	};
+
+	service.sortPosts = function(){
+		return _.sortBy(service.posts, 'id');
 	};
 	
 	return service;

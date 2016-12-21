@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('markNote', ['ui.router','hc.marked', 'post', 'role', 'permission'])
+.constant('_', window._)
 .constant('API', '/api/v1.0/')
 .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 	$stateProvider.state('posts', {
@@ -53,7 +54,7 @@ angular.module('markNote', ['ui.router','hc.marked', 'post', 'role', 'permission
 		}
 	});
 	
-	$urlRouterProvider.otherwise('404');
+	$urlRouterProvider.otherwise('posts');
 }])
 .config(['markedProvider', function (markedProvider) {
   markedProvider.setOptions({

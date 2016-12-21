@@ -14,6 +14,12 @@ function($scope, postService) {
 		postService.deleteById(post._id);
 		$scope.posts.splice(index, 1);
 	};
+
+	$scope.sortPost = function(){
+		console.log('sorting post...');
+		$scope.reverse = !$scope.reverse;
+		//$scope.posts = postService.sortPosts();
+	};
 }])
 .controller('PostAddCtrl', ['$scope','$state', 'postService', function($scope, $state, postService) {
 	$scope.tags = postService.tags;
