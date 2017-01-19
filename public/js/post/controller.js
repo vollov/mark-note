@@ -3,7 +3,7 @@
 angular.module('post.controllers', [ 'post.services'])
 .controller('PostCtrl', ['$scope', 'postService',
 function($scope, postService) {
-	$scope.posts = postService.posts;
+	$scope.posts = postService.buffer;
 
 	$scope.selectPost = function(row) {
 		$scope.selectedRow = row;

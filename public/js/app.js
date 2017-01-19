@@ -14,6 +14,16 @@ angular.module('markNote', ['ui.router','hc.marked', 'post', 'role', 'permission
 			}]
 		}
 	})
+	.state('posts-find', {
+		url : '/posts/find/:tag',
+		templateUrl : '/views/post/list.html',
+		controller : 'PostCtrl',
+		resolve: {
+			postPromise: ['$stateParams','postService', function($stateParams, postService){
+				return postService.find($stateParams.tag);
+			}]
+		}
+	})
 	.state('404', {
 		url : '/404',
 		templateUrl : '/views/404.html'
