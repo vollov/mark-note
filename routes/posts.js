@@ -35,7 +35,7 @@ router.post('/', function(req, res, next) {
 			return next(err);
 		}
 
-		log.debug('saved post with id = ' + post.id)
+		log.debug('saved post with id = ' + post.id);
 		res.json(post);
 	});
 });
@@ -46,8 +46,9 @@ router.put('/:id', function(req, res, next) {
 
 	log.debug('HTTP PUT /posts/:id -- id = %s, post = %j', id, p);
 	
+	var query = Post.findOne({_id: id});
 	//res.json(p);
-	Post.findById(id, function (err, post) {
+	query.exec(function (err, post) {
 		if (err) return next(new Error("can't find post"));
 		
 		_.extend(post,p);
@@ -66,7 +67,7 @@ router.get('/:id', function(req, res, next) {
 	var id = req.params.id;	
 	log.debug('HTTP GET /posts/:id -- id = %s', id);
 	
-	var query = Post.findById(id).populate('tag');
+	var query = Post.findOne({_id: id}).populate('tag');
 
 	query.exec(function(err, post) {
 		if (err) {

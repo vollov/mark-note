@@ -68,10 +68,10 @@ function($scope, postService) {
 			title : $scope.post.title,
 			content : $scope.post.content
 		}, post._id);
-		$scope.post.id = '';
-		$scope.post.title = '';
-		$scope.post.content = '';
+		// $scope.post.id = '';
+		// $scope.post.title = '';
+		// $scope.post.content = '';
 		
-		$state.go('posts');
+		//$state.go('posts');
 	};
 }]);

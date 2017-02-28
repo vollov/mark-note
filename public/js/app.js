@@ -69,13 +69,34 @@ angular.module('markNote', ['ui.router','hc.marked', 'post', 'role', 'permission
 .config(['markedProvider', function (markedProvider) {
   markedProvider.setOptions({
     gfm: true,
-    tables: true
-//    highlight: function (code, lang) {
-//      if (lang) {
-//        return hljs.highlight(lang, code, true).value;
-//      } else {
-//        return hljs.highlightAuto(code).value;
-//      }
-//    }
+    tables: true,
+
+   // highlight: function (code, lang) {
+   //   if (lang) {
+   //     return hljs.highlight(lang, code, true).value;
+   //   } else {
+   //     return hljs.highlightAuto(code).value;
+   //   }
+   // }
+  });
+
+  // sample:
+  // markedProvider.setRenderer({
+  //   link: function(href, title, text) {
+  //     return "<a class='btn btn-default' href='" + href + "'" + (title ? " title='" + title + "'" : '') + " target='_blank'>" + text + "</a>";
+  //   }
+  // });
+
+  markedProvider.setRenderer({
+    table: function(header, body) {
+        return "<table class='table table-bordered table-hover'>\n"
+			+ '<thead>\n'
+			+ header
+			+ '</thead>\n'
+			+ '<tbody>\n'
+			+ body
+			+ '</tbody>\n'
+			+ '</table>\n';
+	}
   });
 }]);

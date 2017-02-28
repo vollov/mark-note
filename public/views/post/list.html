@@ -7,9 +7,16 @@
  -->
 <nav class="navbar navbar-default">
 	<div class="container-fluid">
-		<a href="/#/posts" class="btn btn-info navbar-btn navbar-left" role="button">ALL</a>
-		<a href="/#/posts/find/SVN" class="btn btn-info navbar-btn navbar-left" role="button">SVN</a>
-		<a href="/#/posts/find/reports" class="btn btn-info navbar-btn navbar-left" role="button">reports</a>
+		<a href="/#/posts" class="btn btn-info navbar-btn navbar-left btn-top" role="button">ALL</a> 
+		<a href="/#/posts/find/system" class="btn btn-info navbar-btn navbar-left btn-top" role="button">SYS</a> 		
+		<a href="/#/posts/find/support" class="btn btn-info navbar-btn navbar-left btn-top" role="button">Support</a> 
+		
+		<a href="/#/posts/find/SVN" class="btn btn-info navbar-btn navbar-left btn-top" role="button">SVN</a> 
+		
+		<a href="/#/posts/find/reports" class="btn btn-info navbar-btn navbar-left btn-top" role="button">reports</a>
+		
+		<a href="/#/posts/find/git" class="btn btn-info navbar-btn navbar-left btn-top" role="button">Git</a>
+		<a href="/#/posts/find/seam" class="btn btn-info navbar-btn navbar-left btn-top" role="button">Seam</a>
 
 		<form class="navbar-form navbar-right">
 			<div class="form-group">
@@ -43,7 +50,7 @@
 			<td><a class="btn btn-primary"
 				ng-click="deletePost(p, $index)" ng-class="{disabled: index < 0}">delete</a></td>
 			<td><a class="btn btn-primary"
-				href="/#/post/edit/{{p._id}}" ng-class="{disabled: index < 0}">edit</a></td>
+				href="/#/post/edit/{{p.id}}" ng-class="{disabled: index < 0}">edit</a></td>
 		<tr>
 	</tbody>
 </table>
