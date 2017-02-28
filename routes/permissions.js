@@ -21,6 +21,8 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
 	var permission = new Permission(req.body);
 	
+	log.debug('HTTP POST /permissions -- permission = %j', req.body);
+
 	permission.save(function(err, permission) {
 		if (err) {
 			return next(err);

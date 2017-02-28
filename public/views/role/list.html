@@ -26,12 +26,12 @@
 			<td>{{$index+1}}</td>
 			<td>{{role.name}}</td>
 			<td><a href="/#/role/view/{{role._id}}">{{ role.description | limitTo: 10}} ...</a></td>
-			<td>{{p.created | date:'yyyy-MM-dd (HH)'}}</td>
+			<td>{{ role.created | date:'yyyy-MM-dd HH:MM'}}</td>
 			
 			<td><a class="btn btn-primary"
 				ng-click="deleteRole(role, $index)" ng-class="{disabled: index < 0}">delete</a></td>
 			<td><a class="btn btn-primary"
-				href="/#/role/edit/{{role._id}}" ng-class="{disabled: index < 0}">edit</a></td>
+				href="/#/role/{{role._id}}/edit" ng-class="{disabled: index < 0}">edit</a></td>
 		<tr>
 	</tbody>
 </table>

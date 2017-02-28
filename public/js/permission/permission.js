@@ -16,17 +16,17 @@ angular.module('permission', ['ui.router'])
 			}]
 		}
 	})
-	// .state('permission-edit', {
-	// 	url : '/permission/edit/:id',
-	// 	templateUrl : '/views/permission/edit.html',
-	// 	controller : 'PermissionEditCtrl',
-	// 	resolve : {
-	// 		post : ['$stateParams', 'postService',
-	// 		function($stateParams, postService) {
-	// 			return postService.get($stateParams.id);
-	// 		}]
-	// 	}
-	// })
+	.state('permission-edit', {
+		url : '/permission/:id/edit',
+		templateUrl : '/views/permission/edit.html',
+		controller : 'permissionEditCtrl',
+		resolve : {
+			permission : ['$stateParams', 'permissionService',
+			function($stateParams, permissionService) {
+				return permissionService.get($stateParams.id);
+			}]
+		}
+	})
 	.state('permission-add', {
 		url : '/permission/add',
 		templateUrl : '/views/permission/edit.html',
@@ -42,7 +42,8 @@ angular.module('permission', ['ui.router'])
 }])
 .factory('permissionService', PermissionService)
 .controller('permissionCtrl', PermissionCtrl)
-.controller('permissionAddCtrl', PermissionAddCtrl);
+.controller('permissionAddCtrl', PermissionAddCtrl)
+.controller('permissionEditCtrl', PermissionEditCtrl);
 
 PermissionService.$inject = ['$http', 'API'];
 
@@ -61,7 +62,7 @@ function PermissionService($http, API){
 	};
 
 	service.getRoles = function() {
-		return $http.get(API + 'roles')
+		return $http.get(API + 'role')
 		.success(function(data) {
 			angular.copy(data, service.roles);
 		});
@@ -73,9 +74,9 @@ function PermissionService($http, API){
 		});
 	};
 	
-	service.update = function(permission, id) {
-		console.log('service put permission by id = %s', id);
-		return $http.put(API + service.name + '/' + id, permission).success(function(data){
+	service.update = function(permission) {
+		console.log('service put permission by id = %s', permission.id);
+		return $http.put(API + service.name + '/' + permission.id, permission).success(function(data){
 			//service.permissions.push(data);
 			console.log('permission[PUT] returns data=%j', data);
 			return data;
@@ -109,8 +110,8 @@ function PermissionCtrl($scope,permissionService){
 	};
 	
 	$scope.deletePermission = function(permission, index) {
-		//console.log('delete post by id='+ post._id);
-		permissionService.deleteById(permission.id);
+		console.log('[PermissionCtrl] delete permission by id='+ permission._id);
+		permissionService.deleteById(permission._id);
 		$scope.permissions.splice(index, 1);
 	};
 }
@@ -118,31 +119,54 @@ function PermissionCtrl($scope,permissionService){
 PermissionAddCtrl.$inject = ['$scope','$state','permissionService'];
 
 function PermissionAddCtrl($scope, $state, permissionService){
-
+	$scope.isEdit = false;
 	$scope.roles = permissionService.roles;
 	
 	//console.log('tags= %j', tags);
 	$scope.savePermission = function() {
 		
 		console.log('service get permission, slug = %s', this.permission.slug);
-
-		// postService.create({
-		// 	slug: this.permission.slug,
-		// 	url:this.permission.url,
-		// 	action: this.permission.action
-		// });
+		console.log('service get permission, roles = %s', this.permission.roles.toString());
+		permissionService.create({
+			slug: this.permission.slug,
+			url:this.permission.url,
+			//action: this.permission.action,
+			roles: this.permission.roles,
+			description: this.permission.description
+		});
 
 		
 		$state.go('permissions');
 	};
 
+	// $scope.savePermission = function(){
+	// 	console.log('calling PermissionAddCtrl.savePermission()');
+	// 	permissionService.create({
+	// 		name: this.permission.name,
+	// 		description: this.permission.description
+	// 	});
+	// 	$state.go('permissions');
+	// }
+
+}
+
+PermissionEditCtrl.$inject =['$scope', '$state', 'permissionService', 'permission'];
+
+function PermissionEditCtrl($scope,$state,permissionService, permission) {
+	$scope.permission = permission;
+	$scope.isEdit = true;
+	
 	$scope.savePermission = function(){
-		console.log('calling PermissionAddCtrl.savePermission()');
-		permissionService.create({
-			name: this.permission.name,
+		console.log('calling PermissionEditCtrl.savePermission()');
+		permissionService.update({
+			id:this.permission._id,
+			slug: this.permission.slug,
+			url:this.permission.url,
+			//action: this.permission.action,
+			roles: this.permission.roles,
 			description: this.permission.description
 		});
 		$state.go('permissions');
-	}
-
+	}	
 }
+

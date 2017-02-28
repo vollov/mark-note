@@ -1,6 +1,6 @@
 <h2>Create Role</h2>
 
-<form name="roleForm" ng-submit="saveRole()">
+<form name="roleForm" ng-submit="savePermission()">
 	<div class="form-group">
 		<input type="text" class="form-control"
 			placeholder="Slug" ng-model="permission.slug" required></input>
@@ -11,23 +11,17 @@
 			placeholder="URL" ng-model="permission.url" required></input>
 	</div>
 
-	<div class="form-group">
-		<input type="text" class="form-control"
-			placeholder="action" ng-model="permission.action" required></input>
-	</div>
 
 	<div class="form-group">
-
-
-<label ng-repeat="role in roles">
-  <input
-    type="checkbox"
-    name="permission.roles"
-    value="{{role.name}}"
-    ng-checked="selection.indexOf(role.name) > -1"
-    ng-click="toggleSelection(role.name)"
-  > {{ role.name }}
-</label>
+		<label ng-repeat="role in roles">
+		  <input
+		    type="checkbox"
+		    ng-model="permission.roles"
+		    value="{{role.name}}"
+		    ng-checked="selection.indexOf(role.name) > -1"
+		    ng-click="toggleSelection(role.name)"
+		  > {{ role.name }}
+		</label>
 	</div>
 
 	<div class="form-group">

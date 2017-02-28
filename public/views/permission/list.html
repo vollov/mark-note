@@ -1,9 +1,8 @@
-<h1>Roles</h1>
-
+<h2>{{isEdit ? 'Edit' : 'Create'}}  Permission</h2>
 <div class="menu">
 	<form class="navbar-form navbar-left">
 		<div class="form-group">
-			<input type="text" placeholder="Search By Role Name" ng-model="query" class="form-control">
+			<input type="text" placeholder="Search By Permission Name" ng-model="query" class="form-control">
 		</div>
 	</form>
 </div>
@@ -29,12 +28,12 @@
 			<td>{{p.slug}}</td>
 			<td>{{p.url}}</td>
 			<td>{{p.url}}</td>
-			<td><a href="/#/permission/view/{{p.id}}">{{ permission.description | limitTo: 10}} ...</a></td>
+			<td><a href="/#/permission/view/{{p._id}}">{{ permission.description | limitTo: 10}} ...</a></td>
 			<td>{{p.created | date:'yyyy-MM-dd (HH)'}}</td>
 			<td><a class="btn btn-primary"
 				ng-click="deletePermission(p, $index)" ng-class="{disabled: index < 0}">delete</a></td>
 			<td><a class="btn btn-primary"
-				href="/#/permission/edit/{{p.id}}" ng-class="{disabled: index < 0}">edit</a></td>
+				href="/#/permission/{{p._id}}/edit" ng-class="{disabled: index < 0}">edit</a></td>
 		<tr>
 	</tbody>
 </table>

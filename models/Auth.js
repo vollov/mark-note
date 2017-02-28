@@ -35,9 +35,9 @@ var PermissionSchema = new mongoose.Schema({
 		type : mongoose.Schema.Types.ObjectId,
 		ref : 'Role'
 	}],
-	action : {
-		type : String
-	},
+//	action : {
+//		type : String
+//	},
 	description: {
 		type: String
 	},

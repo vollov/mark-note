@@ -16,17 +16,17 @@ angular.module('role', ['ui.router'])
 			}]
 		}
 	})
-	// .state('role-edit', {
-	// 	url : '/role/edit/:id',
-	// 	templateUrl : '/views/role/edit.html',
-	// 	controller : 'RoleEditCtrl',
-	// 	resolve : {
-	// 		post : ['$stateParams', 'postService',
-	// 		function($stateParams, postService) {
-	// 			return postService.get($stateParams.id);
-	// 		}]
-	// 	}
-	// })
+	.state('role-edit', {
+		url : '/role/:id/edit',
+		templateUrl : '/views/role/edit.html',
+		controller : 'roleEditCtrl',
+		resolve : {
+			role : ['$stateParams', 'roleService',
+			function($stateParams, roleService) {
+				return roleService.get($stateParams.id);
+			}]
+		}
+	})
 	.state('role-add', {
 		url : '/role/add',
 		templateUrl : '/views/role/edit.html',
@@ -37,7 +37,8 @@ angular.module('role', ['ui.router'])
 }])
 .factory('roleService', RoleService)
 .controller('roleCtrl', RoleCtrl)
-.controller('roleAddCtrl', RoleAddCtrl);
+.controller('roleAddCtrl', RoleAddCtrl)
+.controller('roleEditCtrl', RoleEditCtrl);
 
 RoleService.$inject = ['$http', 'API'];
 
@@ -60,9 +61,9 @@ function RoleService($http, API){
 		});
 	};
 	
-	service.update = function(role, id) {
-		console.log('service put role by id = %s', id);
-		return $http.put(API + service.name + '/' + id, role).success(function(data){
+	service.update = function(role) {
+		console.log('service put role by id = %s', role.id);
+		return $http.put(API + service.name + '/' + role.id, role).success(function(data){
 			//service.roles.push(data);
 			console.log('role[PUT] returns data=%j', data);
 			return data;
@@ -77,6 +78,8 @@ function RoleService($http, API){
 	};
 	
 	service.deleteById = function(id) {
+		console.log('delete by id=' + id);
+		
 		return $http.delete(API + service.name + '/' + id).then(function(res) {
 			return res.data;
 		});
@@ -96,8 +99,8 @@ function RoleCtrl($scope,roleService){
 	};
 	
 	$scope.deleteRole = function(role, index) {
-		//console.log('delete post by id='+ post._id);
-		roleService.deleteById(role.id);
+		console.log('[RoleCtrl] delete role by id='+ role._id);
+		roleService.deleteById(role._id);
 		$scope.roles.splice(index, 1);
 	};
 }
@@ -105,7 +108,8 @@ function RoleCtrl($scope,roleService){
 RoleAddCtrl.$inject = ['$scope','$state','roleService'];
 
 function RoleAddCtrl($scope, $state, roleService){
-
+	$scope.isEdit = false;
+	
 	$scope.saveRole = function(){
 		console.log('calling RoleAddCtrl.saveRole()');
 		roleService.create({
@@ -116,3 +120,21 @@ function RoleAddCtrl($scope, $state, roleService){
 	}
 
 }
+
+RoleEditCtrl.$inject =['$scope', '$state', 'roleService', 'role'];
+
+function RoleEditCtrl($scope,$state,roleService, role) {
+	$scope.role = role;
+	$scope.isEdit = true;
+	
+	$scope.saveRole = function(){
+		console.log('calling RoleEditCtrl.saveRole()');
+		roleService.update({
+			id:this.role._id,
+			name: this.role.name,
+			description: this.role.description
+		});
+		$state.go('roles');
+	}	
+}
+
