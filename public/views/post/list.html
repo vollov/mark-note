@@ -1,20 +1,20 @@
 <h1>My Notes</h1>
 
-<!-- 
+<!--
 <div class="menu">
-	
+
 </div>
  -->
 <nav class="navbar navbar-default">
 	<div class="container-fluid">
-		<a href="/#/posts" class="btn btn-info navbar-btn navbar-left btn-top" role="button">ALL</a> 
-		<a href="/#/posts/find/system" class="btn btn-info navbar-btn navbar-left btn-top" role="button">SYS</a> 		
-		<a href="/#/posts/find/support" class="btn btn-info navbar-btn navbar-left btn-top" role="button">Support</a> 
-		
-		<a href="/#/posts/find/SVN" class="btn btn-info navbar-btn navbar-left btn-top" role="button">SVN</a> 
-		
+		<a href="/#/posts" class="btn btn-info navbar-btn navbar-left btn-top" role="button">ALL</a>
+		<a href="/#/posts/find/system" class="btn btn-info navbar-btn navbar-left btn-top" role="button">SYS</a>
+		<a href="/#/posts/find/support" class="btn btn-info navbar-btn navbar-left btn-top" role="button">Support</a>
+
+		<a href="/#/posts/find/SVN" class="btn btn-info navbar-btn navbar-left btn-top" role="button">SVN</a>
+
 		<a href="/#/posts/find/reports" class="btn btn-info navbar-btn navbar-left btn-top" role="button">reports</a>
-		
+
 		<a href="/#/posts/find/git" class="btn btn-info navbar-btn navbar-left btn-top" role="button">Git</a>
 		<a href="/#/posts/find/seam" class="btn btn-info navbar-btn navbar-left btn-top" role="button">Seam</a>
 
@@ -44,7 +44,7 @@
 			ng-repeat="p in posts | filter:query | orderBy:'created':reverse">
 			<td>{{$index+1}}</td>
 			<td>{{p.id}}</td>
-			<td><a href="/#/post/view/{{p._id}}">{{p.title | limitTo: 70}} ...</a></td>
+			<td><a href="/#/post/view/{{p.id}}">{{p.title | limitTo: 70}} ...</a></td>
 			<td>{{p.created | date:'yyyy-MM-dd (HH)'}}</td>
 			<td>{{p.tag.name}}</td>
 			<td><a class="btn btn-primary"

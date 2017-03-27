@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 var Post = mongoose.model('Post');
 
 var _ = require('underscore');
@@ -14,12 +15,14 @@ router.get('/', function(req, res, next) {
 
 	log.debug('HTTP GET /posts -- all post, req =');
 
-	Post.find({}).populate('tag').select().exec(function(err, posts) {
-		if (err) {
-			log.debug('HTTP GET /posts -- all post, err = %j', err);
-			return res.status(500).json(err);
-		}
-		return res.status(200).json(posts);
+	var promise = Post.find({}).populate('tag').select().exec();
+
+	promise.then((posts) => {
+	  return res.status(200).json(posts);
+	})
+	.catch((err) => {
+		log.error('HTTP GET /posts -- all post, err = %j', err);
+		return res.status(500).json(err);
 	});
 });
 
@@ -45,17 +48,17 @@ router.put('/:id', function(req, res, next) {
 	var p = req.body;
 
 	log.debug('HTTP PUT /posts/:id -- id = %s, post = %j', id, p);
-	
-	var query = Post.findOne({_id: id});
+
+	var query = Post.findOne({id: id});
 	//res.json(p);
 	query.exec(function (err, post) {
 		if (err) return next(new Error("can't find post"));
-		
+
 		_.extend(post,p);
 //		post.title= p.title;
 //		post.id = p.id;
 //		post.content = p.content;
-		
+
 		post.save(function (err) {
 			if (err) return next(err);
 		    res.json(post);
@@ -64,10 +67,10 @@ router.put('/:id', function(req, res, next) {
 });
 
 router.get('/:id', function(req, res, next) {
-	var id = req.params.id;	
+	var id = req.params.id;
 	log.debug('HTTP GET /posts/:id -- id = %s', id);
-	
-	var query = Post.findOne({_id: id}).populate('tag');
+
+	var query = Post.findOne({id: id}).populate('tag');
 
 	query.exec(function(err, post) {
 		if (err) {
@@ -76,7 +79,7 @@ router.get('/:id', function(req, res, next) {
 		if (!post) {
 			return next(new Error("can't find post"));
 		}
-		
+
 		log.debug('GET by id post= %j', post);
 		res.json(post);
 	});
@@ -85,7 +88,7 @@ router.get('/:id', function(req, res, next) {
 router.delete('/:id', function(req, res, next){
 	var id = req.params.id;
 	var query = Post.findById(id).remove();
-	
+
 	query.exec(function(err, post) {
 		if (err) {
 			return next(err);
@@ -93,7 +96,7 @@ router.delete('/:id', function(req, res, next){
 		if (!post) {
 			return next(new Error("can't find post"));
 		}
-		
+
 		log.debug('DELETE by id post= %j', post);
 		res.json(post);
 	});

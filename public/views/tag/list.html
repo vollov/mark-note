@@ -1,0 +1,41 @@
+<h1>Tags</h1>
+
+<form name="roleForm">
+	<div class="form-group">
+		<input type="text" class="form-control"
+			placeholder="Name" ng-model="tag.name"></input>
+	</div>
+
+	<button type="submit" ng-click="saveTag()"  class="btn btn-default pull-right">Save</button>
+</form>
+
+<div class="menu">
+	<form class="navbar-form navbar-left">
+		<div class="form-group">
+			<input type="text" placeholder="Search By Name" ng-model="query" class="form-control">
+		</div>
+	</form>
+</div>
+
+<table class="table table-bordered table-striped">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>Name</th>
+			<th>Delete</th>
+			<th>Edit</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-class-even="'even'" ng-class='{selected: $index==selectedRow}'
+			ng-click="selectTag($index)"
+			ng-repeat="t in tags | filter:query | orderBy:'name'">
+			<td>{{$index+1}}</td>
+			<td><a href="/#/tag/view/{{t._id}}">{{t.name}}</a></td>
+			<td><a class="btn btn-primary btn-sm"
+				ng-click="deleteTag(t, $index)" ng-class="{disabled: index < 0}">delete</a></td>
+			<td><a class="btn btn-primary btn-sm"
+				ng-click="editTag(t)" ng-class="{disabled: index < 0}">edit</a></td>
+		<tr>
+	</tbody>
+</table>

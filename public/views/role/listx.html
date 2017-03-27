@@ -1,0 +1,37 @@
+<h1>Roles</h1>
+
+<div class="menu">
+	<form class="navbar-form navbar-left">
+		<div class="form-group">
+			<input type="text" placeholder="Search By Role Name" ng-model="query" class="form-control">
+		</div>
+	</form>
+</div>
+
+<table class="table table-bordered table-striped">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>Name</th>
+			<th>Description</th>
+			<th>Created</th>
+			<th>Delete</th>
+			<th>Edit</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-class-even="'even'" ng-class='{selected: $index==selectedRow}'
+			ng-click="selectRole($index)"
+			ng-repeat="role in roles | filter:query | orderBy:'created'">
+			<td>{{$index+1}}</td>
+			<td>{{role.name}}</td>
+			<td><a href="/#/role/view/{{role._id}}">{{ role.description | limitTo: 10}} ...</a></td>
+			<td>{{p.created | date:'yyyy-MM-dd (HH)'}}</td>
+			
+			<td><a class="btn btn-primary"
+				ng-click="deleteRole(role, $index)" ng-class="{disabled: index < 0}">delete</a></td>
+			<td><a class="btn btn-primary"
+				href="/#/role/edit/{{role._id}}" ng-class="{disabled: index < 0}">edit</a></td>
+		<tr>
+	</tbody>
+</table>

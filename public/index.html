@@ -22,7 +22,8 @@
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
 					<li><a href="/#/post/add">New Issue</a></li>
-					<li><a href="/#/posts">Issues</a></li>
+					<li><a href="/#/posts">Notes</a></li>
+					<li><a href="/#/tags">Tags</a></li>
 
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Role<span class="caret"></span></a>
@@ -32,7 +33,7 @@
 		                </ul>
               		</li>
 
-              		<li class="dropdown">
+									<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Permission<span class="caret"></span></a>
 		                <ul class="dropdown-menu">
 		                  <li><a href="/#/permission/add">Create Permission</a></li>
@@ -58,7 +59,7 @@
 
 	<div class="container">
 		<div class="row starter-template">
-			
+
 			<ui-view></ui-view>
 		</div>
 	</div>
@@ -77,7 +78,11 @@
 	<script src="js/post/service.js"></script>
 	<script src="js/post/controller.js"></script>
 	<script src="js/post/module.js"></script>
-	
+
+	<script src="js/tag/service.js"></script>
+	<script src="js/tag/controller.js"></script>
+	<script src="js/tag/module.js"></script>
+
 	<script src="js/role/role.js"></script>
 	<script src="js/permission/permission.js"></script>
 </body>
