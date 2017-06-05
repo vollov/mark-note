@@ -16,18 +16,35 @@ angular.module('post.services', [])
 			angular.copy(data, service.buffer);
 		});
 	};
-	
+
 	service.find = function(tag) {
 		console.log('service find posts by tag = %s', tag);
 		// filter out data and return
 		var data = _.filter(service.posts, function(item){
+			//  ["moe", "larry", "curly"]
+			// var tags_names = _.pluck(item.tags, 'name') ;
+			// console.log('find tags_names=%j',tags_names);
+			//
+			// if(_.contains(tags_names, tag)){
+			// 	return true;
+			// }
+			// return false;
+
+			//for single tag match
 			if(item.tag.name == tag){
 				console.log('iter item tag.name=' + item.tag.name);
 				return true;
 			}
 			return false;
 		});
+		// data = _.sortBy(data, function(item){
+		// 	return item.id;
+		// });
+
+		console.log('sorted data =%j',data);
+
 		angular.copy(data, service.buffer);
+
 	};
 
 	service.getTags = function() {
@@ -66,6 +83,7 @@ angular.module('post.services', [])
 	};
 
 	service.sortPosts = function(){
+		console.log('sorting posts');
 		return _.sortBy(service.posts, 'id');
 	};
 

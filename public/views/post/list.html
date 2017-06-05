@@ -25,7 +25,7 @@
 		</form>
 	</div><!-- /.navbar-collapse -->
 </div><!-- /.container-fluid -->
-  
+
 <table class="table table-bordered table-striped">
 	<thead>
 		<tr>
@@ -33,7 +33,7 @@
 			<th>ID</th>
 			<th>Title</th>
 			<th>Created</th>
-			<th>Topic</th>
+			<th>Topics</th>
 			<th>Delete</th>
 			<th>Edit</th>
 		</tr>
@@ -41,12 +41,20 @@
 	<tbody>
 		<tr ng-class-even="'even'" ng-class='{selected: $index==selectedRow}'
 			ng-click="selectPost($index)"
-			ng-repeat="p in posts | filter:query | orderBy:'created':reverse">
+			ng-repeat="p in posts | filter:query | orderBy:'id':reverse">
 			<td>{{$index+1}}</td>
 			<td>{{p.id}}</td>
-			<td><a href="/#/post/view/{{p.id}}">{{p.title | limitTo: 70}} ...</a></td>
+			<td><a href="/#/post/view/{{p.id}}">{{p.title | limitTo: 50}} ...</a></td>
 			<td>{{p.created | date:'yyyy-MM-dd (HH)'}}</td>
-			<td>{{p.tag.name}}</td>
+			<td>{{p.tag.name}}
+
+						<ul class="list-inline">
+							<li ng-repeat="t in p.tags">
+							{{t.name}}
+							</li>
+						</ul>
+
+			</td>
 			<td><a class="btn btn-primary"
 				ng-click="deletePost(p, $index)" ng-class="{disabled: index < 0}">delete</a></td>
 			<td><a class="btn btn-primary"

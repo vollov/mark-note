@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <h2>Create Role</h2>
 
 <form name="roleForm" ng-submit="saveRole()">
@@ -37,38 +36,4 @@
 	</div>
 
 	<button type="submit" class="btn btn-default pull-right">Submit</button>
-=======
-<h2>Create Role</h2>
-
-<form name="roleForm" ng-submit="savePermission()">
-	<div class="form-group">
-		<input type="text" class="form-control"
-			placeholder="Slug" ng-model="permission.slug" required></input>
-	</div>
-
-	<div class="form-group">
-		<input type="text" class="form-control"
-			placeholder="URL" ng-model="permission.url" required></input>
-	</div>
-
-
-	<div class="form-group">
-		<label ng-repeat="role in roles">
-		  <input
-		    type="checkbox"
-		    ng-model="permission.roles"
-		    value="{{role.name}}"
-		    ng-checked="selection.indexOf(role.name) > -1"
-		    ng-click="toggleSelection(role.name)"
-		  > {{ role.name }}
-		</label>
-	</div>
-
-	<div class="form-group">
-		<textarea rows="5" class="form-control"
-			placeholder="Description" ng-model="permission.description"></textarea>
-	</div>
-
-	<button type="submit" class="btn btn-default pull-right">Submit</button>
->>>>>>> c9f541252954020da256dbc1f5259c5e6ad5d1b7
 </form>
