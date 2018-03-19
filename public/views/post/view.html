@@ -1,7 +1,7 @@
 <div class="row text-justify">
 	<h4>[ {{ post.id }} ] {{ post.title }}  </h4>
 	<div>created : {{post.created | date:'yyyy-MM-dd (HH)'}}</div>
-
+	<div>hours : {{post.hours}}</div>
 	<div>Tags :<ul class="list-inline">
 				<li ng-repeat="t in post.tags">
 				{{t.name}}

@@ -39,6 +39,7 @@ function($scope, postService) {
 
 		postService.create({
 			id:$scope.post.id,
+			hours:$scope.post.hours,
 			tag:$scope.post.tag,
 			tags:$scope.post.tags,
 			title : $scope.post.title,
@@ -46,6 +47,7 @@ function($scope, postService) {
 		});
 		$scope.post.id = '';
 		$scope.post.title = '';
+		$scope.post.hours = '';
 		$scope.post.content = '';
 
 		$state.go('posts');
@@ -75,6 +77,7 @@ function($scope, postService) {
 
 		postService.update({
 			id:$scope.post.id,
+			hours:$scope.post.hours,
 			tag:$scope.post.tag,
 			tags:$scope.post.tags,
 			title : $scope.post.title,
